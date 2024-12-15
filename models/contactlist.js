@@ -2,7 +2,7 @@
 // use the module pattern to handle a list of contacts
 module.exports = (function() {
     // private data
-    let contacts = [];
+    const contacts = [];
 
     // private methods
     function addContact(contact) {
@@ -18,8 +18,8 @@ module.exports = (function() {
 
     // public API
     return {
-        addContact: addContact,
-        deleteContact: deleteContact,
+        addContact,
+        deleteContact,
         getContacts: () => contacts
     };
 })();

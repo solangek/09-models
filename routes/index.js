@@ -11,16 +11,21 @@ const db = require('../models/contactlist.js');
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
-  const newId = db.getContacts().length + 1;
-  let newContact = new Contact(newId, 'John', 'Doe', '555-555-5555');
-  // example of using the contactlist module
-  db.addContact(newContact);
-  console.log(db.getContacts());
-  res.send(`Contact list is now ${db.getContacts().length} contacts long. Reload this page and check the server console for details.`);
-  res.end();
+  try {
+    const newId = db.getContacts().length + 1;
 
-  // the default index.html in public folder was deleted to be replaced with this route
-  // res.render('index', { title: 'Express' });
+    let newContact = new Contact(newId, 'John', 'Doe', '555-555-5555');
+    // example of using the contactlist module
+    db.addContact(newContact);
+    console.log(db.getContacts());
+    res.send(`Contact list is now ${db.getContacts().length} contacts long. Reload this page and check the server console for details.`);
+    // res.end(); not necessary, since res.send() ends the response
+
+    // the default index.html in public folder was deleted to be replaced with this route
+    // res.render('index', { title: 'Express' });
+  } catch (err) {
+    next(err); // pass error to the default error handler
+  }
 });
 
 module.exports = router;
